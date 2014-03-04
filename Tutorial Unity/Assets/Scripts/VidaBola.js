@@ -17,6 +17,18 @@ function Update () {
 
 }
 
+function OnTriggerEnter (info : Collider) {
+	
+	if(info.tag == "Enemy" && !isrest){
+		restartlevel();
+		rigidbody.velocity.y=8;
+		collider.enabled=false;
+		animation.Play();
+		//transform.localScale= Vector3(0.1,0.1,0.1);
+		
+ 	}
+}
+
 function restartlevel (){
 	isrest=true;
 	audio.clip = gameover;
@@ -24,3 +36,4 @@ function restartlevel (){
 	yield WaitForSeconds (audio.clip.length);
 	Application.LoadLevel("Tutorial");
 }
+

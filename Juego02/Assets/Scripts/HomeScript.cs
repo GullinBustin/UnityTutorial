@@ -11,6 +11,10 @@ public class HomeScript : MonoBehaviour {
 	//Game
 
 	public GameObject soldier;
+	public GameObject archer;
+	public GameObject guardian;
+
+	
 
 	public string enemy;
 
@@ -28,18 +32,31 @@ public class HomeScript : MonoBehaviour {
 	void OnGUI() {
 		if (make) {
 
-				if (GUI.Button (new Rect (10, 10, 50, 50), btnTexture1)){
-						Debug.Log ("Clicked the button with an image");
+				if (GUI.Button (new Rect (10, 10, 70, 30), "Soldier")){
 						GameObject temp = Instantiate(soldier,new Vector3(transform.position.x + 5, 1.1F ,transform.position.z+5), Quaternion.identity) as GameObject;
 						temp.renderer.material.color = transform.renderer.material.color;
 						temp.tag = transform.tag;
 						temp.GetComponent<MinionControler>().enemy = enemy;
 						if(ishit) temp.transform.SendMessage("Action",encuentro,SendMessageOptions.DontRequireReceiver);
 				}
-
+				if (GUI.Button (new Rect (90, 10, 70, 30), "Archer")){
+						GameObject temp = Instantiate(archer,new Vector3(transform.position.x + 5, 1.1F ,transform.position.z+5), Quaternion.identity) as GameObject;
+						temp.renderer.material.color = transform.renderer.material.color;
+						temp.tag = transform.tag;
+						temp.GetComponent<MinionControler>().enemy = enemy;
+						if(ishit) temp.transform.SendMessage("Action",encuentro,SendMessageOptions.DontRequireReceiver);
+				}
+				if (GUI.Button (new Rect (170, 10, 70, 30), "Guardian")){
+						GameObject temp = Instantiate(guardian,new Vector3(transform.position.x + 5, 2.1F ,transform.position.z+5), Quaternion.identity) as GameObject;
+						temp.renderer.material.color = transform.renderer.material.color;
+						temp.tag = transform.tag;
+						temp.GetComponent<MinionControler>().enemy = enemy;
+						if(ishit) temp.transform.SendMessage("Action",encuentro,SendMessageOptions.DontRequireReceiver);
+				}
+				
 		}
 	}
-
+	
 	void Selected (){
 		renderer.material.shader = Shader.Find("Self-Illumin/Diffuse");	
 		make = true;

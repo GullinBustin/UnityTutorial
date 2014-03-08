@@ -11,7 +11,11 @@ public class MinionControler : MonoBehaviour {
 
 	public int damage = 100;
 
-	[Range(0.1F,100F)]public float damageDistance = 0.1F;
+	[Range(0.1F,10F)]public float reload = 3F;
+	private float isReload; 
+	[Range(0.1F,20F)]public float damageDistance = 0.1F;
+	public bool isArcher = false;
+	public GameObject arrow;
 
 	public int value = 50;
 
@@ -25,6 +29,7 @@ public class MinionControler : MonoBehaviour {
 	private bool control = false;
 	// Use this for initialization
 	void Start () {
+		isReload = reload;
 		me = GetComponent<CharacterController>();
 		enemyGM = GameObject.Find("_"+enemy);
 		if(!control)point= new Vector2(transform.position.x, transform.position.z);
@@ -32,7 +37,7 @@ public class MinionControler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(HP<0){
+		if(HP<=0){
 
 			enemyGM.GetComponent<GMPlayer>().Score += value;
 			Destroy(gameObject);
@@ -45,9 +50,16 @@ public class MinionControler : MonoBehaviour {
 
 			vect = (new Vector2 (target.transform.position.x,target.transform.position.z) - new Vector2 (transform.position.x, transform.position.z));
 			if(IsEnemy (vect)){
-				Fight(target);
+				if(isReload >= reload){
+					Fight(target);
+					isReload=0;
+					//print (Time.time);
+				}
 				vect=new Vector2(0,0);
 
+			}
+			if(isReload < reload){
+				isReload += Time.deltaTime;
 			}
 		}
 		if(vect.magnitude < 0.1) {
@@ -60,7 +72,8 @@ public class MinionControler : MonoBehaviour {
 	
 	bool IsEnemy (Vector2 vect){ //Check if we are on the ground. Return true if we are else return null.
 		RaycastHit hitinfo;
-		if (Physics.Raycast (transform.position, new Vector3 (vect.x, 0, vect.y),out hitinfo, collider.bounds.extents.y + 0.1F)) {
+		print (collider.bounds.extents.z);
+		if (Physics.Raycast (new Vector3(transform.position.x , 1 ,transform.position.z), new Vector3 (vect.x, 0, vect.y),out hitinfo, collider.bounds.extents.z + damageDistance)) {
 			if(hitinfo.transform == target){
 				return true;
 			}
@@ -75,7 +88,14 @@ public class MinionControler : MonoBehaviour {
 	}*/
 
 	void Fight(Transform enemy){
-		enemy.SendMessage("Damage",damage,SendMessageOptions.DontRequireReceiver);
+		if (! isArcher)	enemy.SendMessage ("Damage", damage, SendMessageOptions.DontRequireReceiver);
+		else {
+			GameObject temp = Instantiate (arrow, transform.position, Quaternion.identity) as GameObject;
+			//temp.renderer.material.color = new Color(1,0,0);
+			//temp.transform.SendMessage ("chooseTarget", enemy, SendMessageOptions.DontRequireReceiver);
+			temp.GetComponent<ArrowControl>().target = enemy;
+			temp.GetComponent<ArrowControl>().damage = damage;
+		}
 	}
 
 	void Action (RaycastHit rayhit){

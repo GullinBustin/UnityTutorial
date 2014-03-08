@@ -1,10 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="..\Juego02\Assets\CameraControl.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\BallControl2.js">
     <Files>
-      <File FileName="..\Juego02\Assets\CameraControl.js" Line="5" Column="21" />
-      <File FileName="Assets\Scripts\BallControler.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\CojerMoneda.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Bullet.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Shoter.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\BallControl2.js" Line="24" Column="22" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

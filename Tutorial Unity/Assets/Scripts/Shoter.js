@@ -12,9 +12,9 @@ function Update () {
 }
 
 function huha(){
-	yield WaitForSeconds(3);
+	yield WaitForSeconds(1.5);
 	var dir : Vector3 = obj.transform.position-transform.position;
 	var  effect = Instantiate(bullet,transform.position,transform.rotation);
-	effect.rigidbody.velocity=(dir.normalized * 4);
+	effect.rigidbody.velocity=(dir.normalized * 6);
 	activate=true;
 }

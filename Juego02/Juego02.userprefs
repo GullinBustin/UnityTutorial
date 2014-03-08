@@ -1,10 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MinionControler.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GMPlayer.cs">
     <Files>
-      <File FileName="Assets\Scripts\ArrowControl.cs" Line="26" Column="18" />
-      <File FileName="Assets\Scripts\MinionControler.cs" Line="72" Column="2" />
-      <File FileName="Assets\Scripts\HomeScript.cs" Line="50" Column="85" />
+      <File FileName="Assets\Scripts\HomeScript.cs" Line="4" Column="42" />
+      <File FileName="Assets\Scripts\HomeScript.cs" Line="86" Column="1" />
+      <File FileName="Assets\Scripts\MinionControler.cs" Line="134" Column="1" />
+      <File FileName="Assets\Scripts\GMPlayer.cs" Line="29" Column="83" />
+      <File FileName="Assets\Scripts\CameraControl.js" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -1,10 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\BallControl2.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\Juego02\Assets\HPBar.js">
     <Files>
       <File FileName="Assets\Scripts\Bullet.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Shoter.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\BallControl2.js" Line="24" Column="22" />
+      <File FileName="..\Juego02\Assets\HPBar.js" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

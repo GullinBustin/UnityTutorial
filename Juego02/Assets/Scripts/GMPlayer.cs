@@ -9,7 +9,7 @@ public class GMPlayer : MonoBehaviour {
 	public int SizeX = 100;
 	public int SizeY = 50;
 	public int Xposition =0;
-
+	private float mytime =0F;
 	// Use this for initialization
 	void Start () {
 	
@@ -17,7 +17,12 @@ public class GMPlayer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+		if (mytime >= 1) {
+			Score += 3;
+			mytime=0;
+		} else {
+			mytime += Time.deltaTime;
+		}
 	}
 
 	void OnGUI(){

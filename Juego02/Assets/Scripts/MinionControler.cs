@@ -72,7 +72,7 @@ public class MinionControler : MonoBehaviour {
 	
 	bool IsEnemy (Vector2 vect){ //Check if we are on the ground. Return true if we are else return null.
 		RaycastHit hitinfo;
-		print (collider.bounds.extents.z);
+		//print (collider.bounds.extents.z);
 		if (Physics.Raycast (new Vector3(transform.position.x , 1 ,transform.position.z), new Vector3 (vect.x, 0, vect.y),out hitinfo, collider.bounds.extents.z + damageDistance)) {
 			if(hitinfo.transform == target){
 				return true;

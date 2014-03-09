@@ -10,9 +10,12 @@ public class ArrowControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (target != null) {
-			Vector3 vect = (target.transform.position - transform.position);
-			if (vect.magnitude < 0.5) doDamage (target.transform);
-			transform.position += vect.normalized * Time.deltaTime * speed;
+				Vector3 vect = (target.transform.position - transform.position);
+				if (vect.magnitude < 0.5)
+						doDamage (target.transform);
+				transform.position += vect.normalized * Time.deltaTime * speed;
+		} else {
+			Destroy(gameObject);
 		}
 		//print (transform.position);
 	}

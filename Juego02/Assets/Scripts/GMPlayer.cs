@@ -26,7 +26,7 @@ public class GMPlayer : MonoBehaviour {
 	}
 
 	void OnGUI(){
-		GUI.Box (new Rect(Screen.width/2-SizeX/2+Xposition, OffsetY  , SizeX,SizeY), "Money: " + Score+ "\n" + transform.tag);
+		GUI.Box (new Rect(Screen.width/2-SizeX/2+Xposition, OffsetY  , SizeX,SizeY), "Money: " + Score+ "\n" + transform.name + '_');
 
 	}
 }

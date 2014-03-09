@@ -27,6 +27,10 @@ public class MinionControler : MonoBehaviour {
 	private GameObject enemyGM ;
 
 	private bool control = false;
+
+	private GameObject closest;
+	private float findtime;
+	private bool objective = false;
 	// Use this for initialization
 	void Start () {
 		isReload = reload;
@@ -41,6 +45,12 @@ public class MinionControler : MonoBehaviour {
 
 			enemyGM.GetComponent<GMPlayer>().Score += value;
 			Destroy(gameObject);
+		}
+		if (findtime > 1F && objective==false) {
+			target = FindClosestEnemy ();
+			findtime = 0;
+		} else {
+			findtime += Time.deltaTime;
 		}
 		Vector2 vect;
 		if (target == null) {
@@ -64,6 +74,7 @@ public class MinionControler : MonoBehaviour {
 		}
 		if(vect.magnitude < 0.1) {
 			vect=new Vector2(0,0);
+			objective=false;
 		}
 
 		me.Move(new Vector3(vect.x,0,vect.y).normalized * Time.deltaTime * speed);
@@ -79,6 +90,27 @@ public class MinionControler : MonoBehaviour {
 			}
 		}
 		return false;
+	}
+
+	Transform FindClosestEnemy() {
+		GameObject[] gos;
+		gos = GameObject.FindGameObjectsWithTag(enemy);
+		if (gos.Length != 0) {
+			//GameObject closest;
+			float distance = Mathf.Infinity;
+			Vector3 position = transform.position;
+			foreach (GameObject go in gos) {
+				Vector3 diff = go.transform.position - position;
+				float curDistance = diff.sqrMagnitude;
+				if (curDistance < distance) {
+						closest = go;
+						distance = curDistance;
+				}
+			}
+			return (closest.transform);
+		} else {
+			return null;		
+		}
 	}
 
 	/*void NewEnemy (Transform enemy){
@@ -99,6 +131,7 @@ public class MinionControler : MonoBehaviour {
 	}
 
 	void Action (RaycastHit rayhit){
+		objective = true;
 		if (rayhit.transform.tag == enemy) {
 			target = rayhit.transform;		
 		} else {

@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MinionControler : MonoBehaviour {
-	
+public class CruzadoControler : MonoBehaviour {
+
 	public string enemy;
 
 	public int HP = 100;
@@ -41,7 +41,6 @@ public class MinionControler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
 		if(HP<=0){
 
 			enemyGM.GetComponent<GMPlayer>().Score += value;
@@ -56,11 +55,15 @@ public class MinionControler : MonoBehaviour {
 		Vector2 vect;
 		if (target == null) {
 			vect = (point - new Vector2 (transform.position.x, transform.position.z));
+			transform.LookAt (transform.position + new Vector3(vect.x,0,vect.y) );
+			//animation.Play("camina2");
 		} else {
 			point= new Vector2(target.transform.position.x,target.transform.position.z);
 
 			vect = (new Vector2 (target.transform.position.x,target.transform.position.z) - new Vector2 (transform.position.x, transform.position.z));
+			transform.LookAt (transform.position + new Vector3(vect.x,0,vect.y) );
 			if(IsEnemy (vect)){
+				//animation.Play("ataque2");
 				if(isReload >= reload){
 					Fight(target);
 					isReload=0;
@@ -69,6 +72,7 @@ public class MinionControler : MonoBehaviour {
 				vect=new Vector2(0,0);
 
 			}
+			//animation.Play("camina2");
 			if(isReload < reload){
 				isReload += Time.deltaTime;
 			}
@@ -76,7 +80,9 @@ public class MinionControler : MonoBehaviour {
 		if(vect.magnitude < 0.1) {
 			vect=new Vector2(0,0);
 			objective=false;
-		}
+			if(target == null)animation.Play("stop2");
+			else animation.Play("ataque2");
+		}else animation.Play("camina2"); 
 
 		me.Move(new Vector3(vect.x,0,vect.y).normalized * Time.deltaTime * speed);
 	}
@@ -143,11 +149,11 @@ public class MinionControler : MonoBehaviour {
 	}
 
 	void Selected (){
-		renderer.material.shader = Shader.Find("Self-Illumin/Diffuse");	
+		//renderer.material.shader = Shader.Find("Self-Illumin/Diffuse");	
 	}
 
 	void Deselected (){
-		renderer.material.shader = Shader.Find("Diffuse");
+		//renderer.material.shader = Shader.Find("Diffuse");
 	}
 
 	void NewPoint (Vector2 p){

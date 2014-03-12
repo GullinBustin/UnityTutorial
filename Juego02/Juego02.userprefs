@@ -1,11 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\HomeScript.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CruzadoControler.cs">
     <Files>
-      <File FileName="Assets\Scripts\CruzadoControler.cs" Line="66" Column="7" />
-      <File FileName="Assets\Scripts\MinionControler.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ArrowControl.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\HomeScript.cs" Line="39" Column="87" />
+      <File FileName="Assets\Scripts\CruzadoControler.cs" Line="90" Column="16" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -31,12 +31,16 @@ public class CruzadoControler : MonoBehaviour {
 	private GameObject closest;
 	private float findtime;
 	private bool objective = false;
+
+	private NavMeshAgent navg;
+
 	// Use this for initialization
 	void Start () {
 		isReload = reload;
 		me = GetComponent<CharacterController>();
 		enemyGM = GameObject.Find("_"+enemy);
 		if(!control)point= new Vector2(transform.position.x, transform.position.z);
+		navg = GetComponent<NavMeshAgent> ();
 	}
 	
 	// Update is called once per frame
@@ -56,10 +60,11 @@ public class CruzadoControler : MonoBehaviour {
 		if (target == null) {
 			vect = (point - new Vector2 (transform.position.x, transform.position.z));
 			transform.LookAt (transform.position + new Vector3(vect.x,0,vect.y) );
+			navg.SetDestination(new Vector3(point.x,transform.position.y,point.y));
 			//animation.Play("camina2");
 		} else {
 			point= new Vector2(target.transform.position.x,target.transform.position.z);
-
+			navg.SetDestination(new Vector3(point.x,transform.position.y,point.y));
 			vect = (new Vector2 (target.transform.position.x,target.transform.position.z) - new Vector2 (transform.position.x, transform.position.z));
 			transform.LookAt (transform.position + new Vector3(vect.x,0,vect.y) );
 			if(IsEnemy (vect)){
@@ -82,9 +87,10 @@ public class CruzadoControler : MonoBehaviour {
 			objective=false;
 			if(target == null)animation.Play("stop2");
 			else animation.Play("ataque2");
+			navg.Stop();
 		}else animation.Play("camina2"); 
 
-		me.Move(new Vector3(vect.x,0,vect.y).normalized * Time.deltaTime * speed);
+		//me.Move(new Vector3(vect.x,0,vect.y).normalized * Time.deltaTime * speed);
 	}
 
 	

@@ -23,7 +23,7 @@ public class CruzadoControler : MonoBehaviour {
 
 	private Transform target;
 
-	private CharacterController me = null;
+//	private CharacterController me = null;
 	private GameObject enemyGM ;
 
 	private bool control = false;
@@ -37,7 +37,7 @@ public class CruzadoControler : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		isReload = reload;
-		me = GetComponent<CharacterController>();
+		//me = GetComponent<CharacterController>();
 		enemyGM = GameObject.Find("_"+enemy);
 		if(!control)point= new Vector2(transform.position.x, transform.position.z);
 		navg = GetComponent<NavMeshAgent> ();
@@ -45,58 +45,62 @@ public class CruzadoControler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(HP<=0){
+		if (HP <= 0) {
 
-			enemyGM.GetComponent<GMPlayer>().Score += value;
-			Destroy(gameObject);
-		}
-		if (findtime > 1F && objective==false) {
-			target = FindClosestEnemy ();
-			findtime = 0;
-		} else {
-			findtime += Time.deltaTime;
-		}
-		Vector2 vect;
-		if (target == null) {
-			vect = (point - new Vector2 (transform.position.x, transform.position.z));
-			transform.LookAt (transform.position + new Vector3(vect.x,0,vect.y) );
-			navg.SetDestination(new Vector3(point.x,transform.position.y,point.y));
-			//animation.Play("camina2");
-		} else {
-			point= new Vector2(target.transform.position.x,target.transform.position.z);
-			navg.SetDestination(new Vector3(point.x,transform.position.y,point.y));
-			vect = (new Vector2 (target.transform.position.x,target.transform.position.z) - new Vector2 (transform.position.x, transform.position.z));
-			transform.LookAt (transform.position + new Vector3(vect.x,0,vect.y) );
-			if(IsEnemy (vect)){
-				//animation.Play("ataque2");
-				if(isReload >= reload){
-					Fight(target);
-					isReload=0;
-					//print (Time.time);
+						enemyGM.GetComponent<GMPlayer> ().Score += value;
+						Destroy (gameObject);
+				} else {
+						if (findtime > 1F && objective == false) {
+								target = FindClosestEnemy ();
+								findtime = 0;
+						} else {
+								findtime += Time.deltaTime;
+						}
+						Vector2 vect;
+						if (target == null) {
+								vect = (point - new Vector2 (transform.position.x, transform.position.z));
+								transform.LookAt (transform.position + new Vector3 (vect.x, 0, vect.y));
+								navg.SetDestination (new Vector3 (point.x, transform.position.y, point.y));
+								//animation.Play("camina2");
+						} else {
+								point = new Vector2 (target.transform.position.x, target.transform.position.z);
+								navg.SetDestination (new Vector3 (point.x, transform.position.y, point.y));
+								vect = (new Vector2 (target.transform.position.x, target.transform.position.z) - new Vector2 (transform.position.x, transform.position.z));
+								transform.LookAt (transform.position + new Vector3 (vect.x, 0, vect.y));
+								if (IsEnemy (vect)) {
+										//animation.Play("ataque2");
+										if (isReload >= reload) {
+												Fight (target);
+												isReload = 0;
+												//print (Time.time);
+										}
+										vect = new Vector2 (0, 0);
+
+								}
+								//animation.Play("camina2");
+								if (isReload < reload) {
+										isReload += Time.deltaTime;
+								}
+						}
+						if (vect.magnitude < 0.1) {
+								vect = new Vector2 (0, 0);
+								objective = false;
+								if (target == null)
+										animation.Play ("stop2");
+								else
+										animation.Play ("ataque2");
+								navg.Stop ();
+						} else
+								animation.Play ("camina2"); 
+
+						//me.Move(new Vector3(vect.x,0,vect.y).normalized * Time.deltaTime * speed);
 				}
-				vect=new Vector2(0,0);
-
-			}
-			//animation.Play("camina2");
-			if(isReload < reload){
-				isReload += Time.deltaTime;
-			}
-		}
-		if(vect.magnitude < 0.1) {
-			vect=new Vector2(0,0);
-			objective=false;
-			if(target == null)animation.Play("stop2");
-			else animation.Play("ataque2");
-			navg.Stop();
-		}else animation.Play("camina2"); 
-
-		//me.Move(new Vector3(vect.x,0,vect.y).normalized * Time.deltaTime * speed);
 	}
 
 	
 	bool IsEnemy (Vector2 vect){ //Check if we are on the ground. Return true if we are else return null.
 		RaycastHit hitinfo;
-		//print (collider.bounds.extents.z);
+//print (collider.bounds.extents.z		);
 		if (Physics.Raycast (new Vector3(transform.position.x , 1 ,transform.position.z), new Vector3 (vect.x, 0, vect.y),out hitinfo, collider.bounds.extents.z + damageDistance)) {
 			if(hitinfo.transform == target){
 				return true;

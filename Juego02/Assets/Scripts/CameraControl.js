@@ -2,13 +2,13 @@
 
 private var target : RaycastHit;
 
-private var shader1 : Shader; 
+/*private var shader1 : Shader; 
 private var shader2 : Shader; 
 
 function Start (){
 	shader1 = Shader.Find("Diffuse"); 
 	shader2 = Shader.Find("Self-Illumin/Diffuse"); 
-}
+}*/
 
 function Update () {
 	var varx = Input.GetAxis("Horizontal");
@@ -32,7 +32,7 @@ function Update () {
 		var hit : RaycastHit;
 		
 		if (Physics.Raycast (ray, hit, 100.0)) {
-			target.transform.SendMessage("Action",hit,SendMessageOptions.DontRequireReceiver);
+			if(target.transform != null)target.transform.SendMessage("Action",hit,SendMessageOptions.DontRequireReceiver);
 			
 			/*if(hit.transform.tag == "Player"){
 				
@@ -45,3 +45,4 @@ function Update () {
 		}
 	}
 }
+

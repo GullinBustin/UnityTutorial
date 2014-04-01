@@ -39,16 +39,16 @@ public class HomeScript : MonoBehaviour {
 						GameObject temp = Instantiate(soldier,new Vector3(transform.position.x + 5, 0.19F ,transform.position.z+5), Quaternion.identity) as GameObject;
 						//temp.renderer.material.color = transform.renderer.material.color;
 						temp.tag = transform.tag;
-						temp.GetComponent<CruzadoControler>().enemy = enemy;
-						if(ishit) temp.transform.SendMessage("Action",encuentro,SendMessageOptions.DontRequireReceiver);
+						temp.GetComponent<Guerrero>().enemy = enemy;
+						if(ishit) StartCoroutine(SendMeeting(temp));
 				}
 				if (myGM.GetComponent<GMPlayer>().Score >= 75 && GUI.Button (new Rect (90, 10, 70, 30), "Archer")){
 						myGM.GetComponent<GMPlayer>().Score-=75;
 						GameObject temp = Instantiate(archer,new Vector3(transform.position.x + 5, 1.1F ,transform.position.z+5), Quaternion.identity) as GameObject;
 						temp.renderer.material.color = transform.renderer.material.color;
 						temp.tag = transform.tag;
-						temp.GetComponent<MinionControler>().enemy = enemy;
-						if(ishit) temp.transform.SendMessage("Action",encuentro,SendMessageOptions.DontRequireReceiver);
+						temp.GetComponent<Guerrero>().enemy = enemy;
+						if(ishit) StartCoroutine(SendMeeting(temp));
 				}
 				if (myGM.GetComponent<GMPlayer>().Score >= 100 && GUI.Button (new Rect (170, 10, 70, 30), "Guardian")){
 						myGM.GetComponent<GMPlayer>().Score-=100;
@@ -79,6 +79,10 @@ public class HomeScript : MonoBehaviour {
 
 	void Damage (int hit){
 		HP -= hit;
+	}
+	IEnumerator SendMeeting(GameObject temp) { 
+		yield return new WaitForSeconds(0.1F); 
+		temp.transform.SendMessage("Action",encuentro,SendMessageOptions.DontRequireReceiver);
 	}
 
 

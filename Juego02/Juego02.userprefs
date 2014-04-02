@@ -1,8 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\DragControlCam.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Guerrero.cs">
     <Files>
-      <File FileName="Assets\Scripts\DragControlCam.cs" Line="33" Column="6" />
+      <File FileName="Assets\Scripts\Guerrero.cs" Line="23" Column="39" />
+      <File FileName="Assets\Scripts\CruzadoControler.cs" Line="54" Column="38" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

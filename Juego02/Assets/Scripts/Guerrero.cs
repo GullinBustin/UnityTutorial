@@ -30,6 +30,9 @@ public class Guerrero : MonoBehaviour {
 
 	private NavMeshAgent navigate;
 
+	private int objective=0;
+	private GameObject closest;
+
 	// Use this for initialization
 	public virtual void Start () {
 		navigate = GetComponent<NavMeshAgent> ();
@@ -43,6 +46,9 @@ public class Guerrero : MonoBehaviour {
 			GameObject.Find("_"+enemy).GetComponent<GMPlayer>().Score += price;
 			Destroy(gameObject);
 		} else {
+			if(objective == 0){
+				target = FindClosestEnemy ();
+			}
 			if (target != null) {
 				point = calcularPunto(target);//PosicionPlano(target.position);
 				navigate.SetDestination(new Vector3 (point.x,0, point.y));
@@ -50,6 +56,7 @@ public class Guerrero : MonoBehaviour {
 					ataca();
 					transform.LookAt(new Vector3(point.x, transform.position.y, point.y));
 					navigate.Stop();
+					point = calcularPunto(transform);
 					if(ReloadTime <= 0){
 						Attack(target);
 						ReloadTime=reload;
@@ -62,6 +69,7 @@ public class Guerrero : MonoBehaviour {
 			}else{
 				//navigate.Resume();
 				if((point-PosicionPlano(transform.position)).magnitude <= navigate.stoppingDistance){
+					objective=0;
 					para();
 				}else{
 					camina ();
@@ -95,10 +103,12 @@ public class Guerrero : MonoBehaviour {
 		if (rayhit.transform.tag == enemy) {
 			target = rayhit.transform;
 			navigate.SetDestination(rayhit.transform.position);
+			objective=2;
 		} else {
 			target = null;
 			point = PosicionPlano(rayhit.point);
 			navigate.SetDestination(new Vector3(point.x,0,point.y)); //(new Vector3 (rayhit.point.x, transform.position.y, rayhit.point.z));
+			objective=1;
 		}
 	}
 
@@ -126,6 +136,28 @@ public class Guerrero : MonoBehaviour {
 
 		return sol;
 	}
+
+	Transform FindClosestEnemy() {
+		GameObject[] gos;
+		gos = GameObject.FindGameObjectsWithTag(enemy);
+		if (gos.Length != 0) {
+
+			float distance = Mathf.Infinity;
+			Vector3 position = transform.position;
+			foreach (GameObject go in gos) {
+				Vector3 diff = go.transform.position - position;
+				float curDistance = diff.sqrMagnitude;
+				if (curDistance < distance) {
+					closest = go;
+					distance = curDistance;
+				}
+			}
+			return closest.transform;
+		} else {
+			return null;		
+		}
+	}
+
 	//Estas funiones son un parche
 	public virtual void ataca(){
 	}

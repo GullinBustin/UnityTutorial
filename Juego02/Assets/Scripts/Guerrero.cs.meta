@@ -2,7 +2,9 @@ fileFormatVersion: 2
 guid: 9b8b4e989bd947149b6c9756058b5126
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - isSelect: {instanceID: 0}
+  - AttackSound: {fileID: 8300000, guid: 7723bc8540bd5ec45a0d13351cabca45, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -14,6 +14,8 @@ public class Guerrero : MonoBehaviour {
 	public GameObject isSelect;
 	public float SelectHeight;
 
+	public float AutoAtackRadio;
+
 	private Transform target;
 
 	private Vector2 point;
@@ -25,7 +27,7 @@ public class Guerrero : MonoBehaviour {
 	private float ReloadTime=0;
 
 	[Range(0.1F,20F)]public float damageDistance;
-
+	
 	public int price;
 
 	private NavMeshAgent navigate;
@@ -146,13 +148,15 @@ public class Guerrero : MonoBehaviour {
 			Vector3 position = transform.position;
 			foreach (GameObject go in gos) {
 				Vector3 diff = go.transform.position - position;
-				float curDistance = diff.sqrMagnitude;
+				float curDistance = diff.magnitude;
 				if (curDistance < distance) {
 					closest = go;
 					distance = curDistance;
 				}
 			}
-			return closest.transform;
+			//Debug.Log(distance);
+			if(distance < AutoAtackRadio) return closest.transform;
+			else return null;
 		} else {
 			return null;		
 		}

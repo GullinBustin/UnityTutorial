@@ -22,12 +22,21 @@ public class HomeScript : MonoBehaviour {
 
 	private GameObject myGM ;
 	private int money;
+
+	public GameObject End;
+
+	public Material HomeSelect , HomeDeselect ;
+
 	void Start(){
 		myGM = GameObject.Find("_"+transform.tag);
+
 	}
 
 	void Update (){
-		if (HP < 0)	Destroy (gameObject);
+		if (HP < 0) {
+			End.SendMessage("Lose",SendMessageOptions.DontRequireReceiver);
+			Destroy (gameObject);
+		}
 	}
 
 	void OnGUI() {
@@ -40,7 +49,9 @@ public class HomeScript : MonoBehaviour {
 						//temp.renderer.material.color = transform.renderer.material.color;
 						temp.tag = transform.tag;
 						temp.GetComponent<Guerrero>().enemy = enemy;
+						//if(transform.tag == "Enemy") temp.GetComponent<Guerrero>().AutoAtackRadio = Mathf.Infinity; 
 						if(ishit) StartCoroutine(SendMeeting(temp));
+						
 				}
 				if (myGM.GetComponent<GMPlayer>().Score >= 75 && GUI.Button (new Rect (90, 10, 70, 30), "Archer")){
 						myGM.GetComponent<GMPlayer>().Score-=75;
@@ -48,6 +59,7 @@ public class HomeScript : MonoBehaviour {
 						temp.renderer.material.color = transform.renderer.material.color;
 						temp.tag = transform.tag;
 						temp.GetComponent<Guerrero>().enemy = enemy;
+						//if(transform.tag == "Enemy") temp.GetComponent<Guerrero>().AutoAtackRadio = Mathf.Infinity; 
 						if(ishit) StartCoroutine(SendMeeting(temp));
 				}
 				if (myGM.GetComponent<GMPlayer>().Score >= 100 && GUI.Button (new Rect (170, 10, 70, 30), "Guardian")){
@@ -55,20 +67,21 @@ public class HomeScript : MonoBehaviour {
 						GameObject temp = Instantiate(guardian,new Vector3(transform.position.x + 5, 2.1F ,transform.position.z+5), Quaternion.identity) as GameObject;
 						temp.renderer.material.color = transform.renderer.material.color;
 						temp.tag = transform.tag;
-						temp.GetComponent<MinionControler>().enemy = enemy;
-						if(ishit) temp.transform.SendMessage("Action",encuentro,SendMessageOptions.DontRequireReceiver);
+						temp.GetComponent<Guerrero>().enemy = enemy;
+						//if(transform.tag == "Enemy") temp.GetComponent<Guerrero>().AutoAtackRadio = Mathf.Infinity; 
+						if(ishit) StartCoroutine(SendMeeting(temp));//temp.transform.SendMessage("Action",encuentro,SendMessageOptions.DontRequireReceiver);
 				}
 				
 		}
 	}
 	
 	void Selected (){
-		renderer.material.shader = Shader.Find("Self-Illumin/Diffuse");	
+		renderer.material = HomeSelect;	
 		make = true;
 	}
 
 	void Deselected(){
-		renderer.material.shader = Shader.Find("Diffuse");	
+		renderer.material = HomeDeselect;	
 		make = false;
 	}
 

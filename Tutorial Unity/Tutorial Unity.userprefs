@@ -1,8 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="..\Juego02\Assets\Scripts\DragControlCam.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\Juego02\Assets\Scripts\EnemyIA.cs">
     <Files>
-      <File FileName="..\Juego02\Assets\Scripts\DragControlCam.cs" Line="33" Column="6" />
+      <File FileName="..\Juego02\Assets\Scripts\DragControlCam.cs" Line="36" Column="98" />
+      <File FileName="..\Juego02\Assets\Scripts\EnemyIA.cs" Line="63" Column="66" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -21,8 +21,24 @@ public class DragControlCam : MonoBehaviour {
 	}
 
 	void Update () {
+		if (Input.GetKey("escape")) {
+			Debug.Log("pressss");
+			Application.Quit();
+		}
 		float velx = Input.GetAxis("Horizontal");
 		float vely = Input.GetAxis("Vertical");
+		if (Input.mousePosition.y < Screen.height * 0.1F) {
+			vely=-0.3F;
+		}
+		if (Input.mousePosition.y > Screen.height * 0.8F && Input.mousePosition.y < Screen.height * 0.9F) {
+			vely=0.3F;
+		}
+		if (Input.mousePosition.x < Screen.width * 0.1F && Input.mousePosition.y < Screen.height * 0.9F) {
+			velx=-0.3F;
+		}
+		if (Input.mousePosition.x > Screen.width * 0.9F && Input.mousePosition.y < Screen.height * 0.9F) {
+			velx=0.3F;
+		}
 		transform.position += new Vector3 (1 * velx, 0, 1 * vely);
 
 		if (Input.GetMouseButtonDown (0) == true && Input.mousePosition.y < Screen.height * 0.9F) {
@@ -39,7 +55,7 @@ public class DragControlCam : MonoBehaviour {
 			RaycastHit hitPoint;
 			Physics.Raycast (ray,out hitPoint, 100.0F);
 			IniPoint = new Vector2 (hitPoint.point.x , hitPoint.point.z);
-			if(hitPoint.transform != null) targets.Add(hitPoint.transform);
+			if(hitPoint.transform != null && hitPoint.transform.tag == player ) targets.Add(hitPoint.transform);
 		}
 		if (Input.GetMouseButtonUp (0) == true && SelectMode) {
 			SelectMode=false;
@@ -50,7 +66,7 @@ public class DragControlCam : MonoBehaviour {
 			FinPoint = new Vector2 (hitPoint.point.x , hitPoint.point.z);
 			Vector2 maxvect= new Vector2 ( Mathf.Max(IniPoint.x, FinPoint.x) , Mathf.Max(IniPoint.y, FinPoint.y) );
 			Vector2 minvect= new Vector2 ( Mathf.Min(IniPoint.x, FinPoint.x) , Mathf.Min(IniPoint.y, FinPoint.y) );
-			GameObject[] AllObject = FindObjectsOfType(typeof(GameObject)) as GameObject[];//GameObject.FindGameObjectsWithTag(player);
+			GameObject[] AllObject = GameObject.FindGameObjectsWithTag(player); //FindObjectsOfType(typeof(GameObject)) as GameObject[];//
 
 			for (int i=0; i<AllObject.Length ; i++){
 				if(AllObject[i].transform.position.x > minvect.x && AllObject[i].transform.position.x < maxvect.x && AllObject[i].transform.position.z > minvect.y && AllObject[i].transform.position.z < maxvect.y){
